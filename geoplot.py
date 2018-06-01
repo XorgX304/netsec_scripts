@@ -47,12 +47,14 @@ def main(args):
     m.drawcountries()
     maxwidth = 10
 
+    largest = sorted(events.items(), key=lambda x: x[1], reverse=True)[0][1]
+
     for evt in events:
         ipl = rd.get(evt)
         lat = ipl['location']['latitude']
         long = ipl['location']['longitude']
         m.plot(long, lat, 'ro', latlon=True, zorder=3,
-               markersize=min(events[evt] / 3, maxwidth))
+               markersize=events[evt] * (maxwidth / largest))
 
     m.plot(dlon, dlat, 'go', latlon=True, zorder=2, markersize=4)
     geolite2.close()
